@@ -9,7 +9,7 @@
 
     <!--指定特定数据库的jdbc驱动jar包的位置-->
     <classPathEntry
-            location="/Users/admin/.m2/repository/mysql/mysql-connector-java/5.1.27/mysql-connector-java-5.1.27.jar"/>
+            location="D:/m2_repository/mysql/mysql-connector-java/5.1.27/mysql-connector-java-5.1.27.jar"/>
     <context id="mysql" targetRuntime="MyBatis3">
 
         <!-- optional，旨在创建class时，对注释进行控制 -->
@@ -21,7 +21,7 @@
         <!--jdbc的数据库连接 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://127.0.0.1:3306/boottest"
+                connectionURL="jdbc:mysql://172.19.116.119:3306/boottest"
                 userId="glp_dev"
                 password="glp_loan_dev">
             <property name="useInformationSchema" value="true"></property>
@@ -74,8 +74,8 @@
                selectByExampleQueryId="false">
         </table> -->
       <table tableName="sm_area" domainObjectName="SmArea"
-               enableCountByExample="true" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="false">
         </table>
 
