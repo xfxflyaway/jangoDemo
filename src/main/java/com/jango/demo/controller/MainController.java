@@ -1,8 +1,10 @@
 package com.jango.demo.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.jango.demo.domain.BaseResp;
+import com.jango.demo.domain.XfxDto;
 import com.jango.demo.domain.dto.SmArea;
 import com.jango.demo.domain.dto.SmAreaExample;
-import com.jango.demo.domain.BaseResp;
 import com.jango.demo.mapper.SmAreaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,8 @@ public class MainController {
     // jwt
     // guava eventbus cache
 
+    @Resource
+    XfxDto xfx;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
@@ -41,6 +45,7 @@ public class MainController {
         example.createCriteria().andAreaNameEqualTo("双流区");
         List<SmArea> list = smAreaMapper.selectByExample(example);
         list.forEach(v -> System.out.println(v.getAreaName()));
+        System.out.println(JSON.toJSONString(xfx));
         return new BaseResp(list);
     }
 
@@ -56,8 +61,8 @@ public class MainController {
         return "j add..." + result;
     }
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
-    public void postArea(){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public void postArea() {
 
     }
 
