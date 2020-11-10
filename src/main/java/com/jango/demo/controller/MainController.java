@@ -9,6 +9,7 @@ import com.jango.demo.mapper.SmAreaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,15 +50,11 @@ public class MainController {
         return new BaseResp(list);
     }
 
-    @RequestMapping("add")
+    @RequestMapping("/area/add")
     @Transactional
-    public String add() {
-        LOGGER.info("获取区域信息测试add:{}", "add");
-        SmArea example = new SmArea();
-        example.setAreaId("1");
-        example.setAreaName("华东区");
-        example.setUpperAreaId("9999");
-        int result = smAreaMapper.insertSelective(example);
+    public String add(@RequestBody SmArea area) {
+        LOGGER.info("获取区域信息测试area:{}", JSON.toJSONString(area));
+        int result = smAreaMapper.insertSelective(area);
         return "j add..." + result;
     }
 
