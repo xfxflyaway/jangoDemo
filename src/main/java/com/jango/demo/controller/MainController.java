@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
  * @since v1.0.0
  */
 @RestController
-@RequestMapping("/jango/")
+@RequestMapping("/jango")
 public class MainController {
     // swagger2
     // logback
@@ -39,7 +39,7 @@ public class MainController {
     @Resource
     SmAreaMapper smAreaMapper;
 
-    @RequestMapping("index")
+    @RequestMapping("/index")
     public BaseResp index() {
         LOGGER.info("获取区域信息测试:{}", "boot");
         SmAreaExample example = new SmAreaExample();
@@ -58,9 +58,11 @@ public class MainController {
         return "j add..." + result;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public void postArea() {
-
+    @RequestMapping(value = "/views/jsp")
+    public ModelAndView jsp() {
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("name", xfx.getName());
+        return mv;
     }
 
 }
