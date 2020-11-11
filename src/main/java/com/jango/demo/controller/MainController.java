@@ -8,13 +8,22 @@ import com.jango.demo.domain.dto.SmAreaExample;
 import com.jango.demo.mapper.SmAreaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,7 +32,7 @@ import java.util.List;
  * @date 2019/1/31 下午3:30
  * @since v1.0.0
  */
-@RestController
+@Controller
 @RequestMapping("/jango")
 public class MainController {
     // swagger2
@@ -64,5 +73,50 @@ public class MainController {
         mv.addObject("name", xfx.getName());
         return mv;
     }
+
+    @GetMapping("/upload")
+    public String upload() {
+        return "upload";
+    }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public String upload(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "上传失败，请选择文件";
+        }
+
+        String fileName = file.getOriginalFilename();
+        String filePath = "D:\\data\\temp\\";
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            LOGGER.info("上传成功");
+            return "上传成功";
+        } catch (IOException e) {
+            LOGGER.error(e.toString(), e);
+        }
+        return "上传失败！";
+    }
+
+    @PostMapping("/upload_multi")
+    @ResponseBody
+    public String upload_multi(HttpServletRequest req) {
+        List<MultipartFile> files = ((MultipartHttpServletRequest) req).getFiles("file");
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            String filePath = "D:\\data\\temp\\";
+            File dest = new File(filePath + fileName);
+            try {
+                file.transferTo(dest);
+                LOGGER.info("上传成功");
+            } catch (IOException e) {
+                LOGGER.error(e.toString(), e);
+            }
+        }
+
+        return "上传成功！";
+    }
+
 
 }
