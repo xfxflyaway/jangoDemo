@@ -122,13 +122,18 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <version>RELEASE</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--热启动 ctrl+F9 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional> <!-- 防止将devtools依赖传递到其他模块中 -->
         </dependency>
     </dependencies>
 

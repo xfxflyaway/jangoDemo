@@ -43,7 +43,7 @@ public class MainController {
     public BaseResp index() {
         LOGGER.info("获取区域信息测试:{}", "boot");
         SmAreaExample example = new SmAreaExample();
-        example.createCriteria().andAreaNameEqualTo("双流区");
+        example.createCriteria().andAreaNameEqualTo("普陀区");
         List<SmArea> list = smAreaMapper.selectByExample(example);
         list.forEach(v -> System.out.println(v.getAreaName()));
         System.out.println(JSON.toJSONString(xfx));
